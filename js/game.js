@@ -375,7 +375,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (quitBtn) {
         quitBtn.addEventListener("click", function () {
-            window.location.href = "../index.html";
+            window.location.href = "/acid-rain-game_JP/index.html";
         });
     }
 
