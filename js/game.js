@@ -88,11 +88,12 @@ function spawnWord() {
     span.className = "falling-word jp-text";
     span.textContent = wordObj.jp;
 
-    const len = wordObj.jp.length;
-    const fontSize = 26 + (4 - len) * 2;
+    const fontSize = 35;
     span.style.fontSize = fontSize + "px";
 
     const areaWidth = fallingArea.clientWidth;
+
+    const len = wordObj.jp.length;
     const approxWidth = fontSize * len;
     const maxX = Math.max(areaWidth - approxWidth - 20, 0);
     const x = randomInt(10, maxX > 10 ? maxX : 10);
@@ -102,7 +103,7 @@ function spawnWord() {
 
     fallingArea.appendChild(span);
 
-    const baseSpeed = fontSize * 0.05;
+    const baseSpeed = 2;
     const speed = baseSpeed * diffConf.speedMultiplier;
 
     activeWords.push({
@@ -113,6 +114,7 @@ function spawnWord() {
         speed: speed
     });
 }
+
 
 function step() {
     if (!isRunning) return;
