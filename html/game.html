@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>산성비 - Game</title>
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+<body>
+    <div class="game-container">
+        <header class="game-header">
+            <div class="stat kr-text">남은 시간: <span id="time-remaining">0</span>초</div>
+            <div class="stat kr-text">점수: <span id="current-score">0</span></div>
+            <div class="stat kr-text">최고 점수: <span id="best-score">0</span></div>
+            <button id="exit-btn" class="exit-btn kr-text">나가기</button>
+        </header>
+
+        <main class="game-main">
+            <div class="falling-area" id="falling-area"></div>
+
+            <div class="input-area">
+                <input id="answer-input" type="text" placeholder="뜻을 한글로 입력 후 Enter 또는 버튼" autocomplete="off"
+                    class="kr-text" />
+                <button id="submit-answer" class="intro-start_btn kr-text">
+                    입력
+                </button>
+            </div>
+        </main>
+    </div>
+    <div class="life-container kr-text">
+        <span id="life-hearts">♥♥♥♥♥</span>
+    </div>
+
+
+    <div id="game-modal-overlay" class="game-modal-overlay hidden">
+        <!-- 점수 모달 -->
+        <div id="result-modal" class="game-modal">
+            <div class="game-modal-title kr-text">게임 종료</div>
+
+            <div class="game-modal-score kr-text">
+                점수: <span id="modal-score">0</span>
+            </div>
+            <div class="game-modal-best kr-text">
+                최고 점수: <span id="modal-best-score">0</span>
+            </div>
+
+            <button id="open-wrong-btn" class="modal-link kr-text">
+                오답 모아보기
+            </button>
+
+            <div class="game-modal-buttons">
+                <button id="restart-btn" class="modal-btn kr-text">다시 시작하기</button>
+                <button id="quit-btn" class="modal-btn modal-btn-secondary kr-text">
+                    그만하기
+                </button>
+            </div>
+        </div>
+
+        <!-- 오답 전용 모달 -->
+        <div id="wrong-modal" class="game-modal wrong-only hidden">
+            <div class="game-modal-title kr-text">오답 모아보기</div>
+
+            <table class="wrong-table kr-text">
+                <thead>
+                    <tr>
+                        <th>일본어</th>
+                        <th>정답(한글)</th>
+                        <th>내 입력</th>
+                    </tr>
+                </thead>
+                <tbody id="wrong-table-body"></tbody>
+            </table>
+
+            <div class="game-modal-buttons">
+                <button id="wrong-back-btn" class="modal-btn kr-text">
+                    돌아가기
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/game.js"></script>
+</body>
+
+</html>
