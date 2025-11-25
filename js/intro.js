@@ -1,5 +1,5 @@
 function startGame() {
-    window.location.href = "game.html";
+    window.location.href = "./game.html";
     timeRemainingEl.textContent = remainingTime;
 }
 
