@@ -326,7 +326,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const exitBtn = document.getElementById("exit-btn");
 
-    fetch("./assets/words.json")
+    fetch("assets/words.json")
         .then(res => res.json())
         .then(data => {
             WORDS = data;
