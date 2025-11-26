@@ -23,9 +23,9 @@ function logEvent(type, data = {}) {
 let WORDS = [];
 
 const difficultyConfig = {
-    easy: { spawnInterval: 1600, speedMultiplier: 0.8, maxWords: 3 },
-    normal: { spawnInterval: 1200, speedMultiplier: 1, maxWords: 4 },
-    hard: { spawnInterval: 800, speedMultiplier: 1.3, maxWords: 5 }
+    easy: { spawnInterval: 2200, speedMultiplier: 0.8, maxWords: 3 },
+    normal: { spawnInterval: 1800, speedMultiplier: 1.0, maxWords: 4 },
+    hard: { spawnInterval: 1400, speedMultiplier: 1.2, maxWords: 5 }
 };
 
 let fallingArea;
@@ -125,7 +125,7 @@ function spawnWord() {
 
     fallingArea.appendChild(span);
 
-    const baseSpeed = 2;
+    const baseSpeed = 1.5;
     const speed = baseSpeed * diffConf.speedMultiplier;
 
     activeWords.push({
@@ -136,7 +136,6 @@ function spawnWord() {
         speed: speed
     });
 }
-
 
 function step() {
     if (!isRunning) return;
