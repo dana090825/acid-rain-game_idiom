@@ -1,3 +1,25 @@
+const LOG_KEY = "acidRainLogs"; // localStorage에 저장할 키
+
+function logEvent(type, data = {}) {
+    const payload = {
+        type,                 // "page_enter", "game_start", "game_end" 같은 이벤트 이름
+        time: new Date().toISOString(),
+        ...data
+    };
+
+    // 콘솔에 찍기
+    console.log("[ACID-RAIN-LOG]", payload);
+
+    // 로컬에 저장(선택 사항)
+    try {
+        const prev = JSON.parse(localStorage.getItem(LOG_KEY) || "[]");
+        prev.push(payload);
+        localStorage.setItem(LOG_KEY, JSON.stringify(prev));
+    } catch (e) {
+        console.error("log 저장 실패", e);
+    }
+}
+
 let WORDS = [];
 
 const difficultyConfig = {
@@ -267,11 +289,30 @@ function endGame() {
     clearInterval(spawnIntervalId);
     cancelAnimationFrame(animId);
 
+    logEvent("game_end", {
+        score,
+        bestScore,
+        remainingTime,
+        wrongCount: wrongAnswers.length,
+        difficulty: difficultyKey,
+        totalTime
+    });
+
     answerInput.blur();
     showModal();
 }
 
 function startGame() {
+    startBtn.addEventListener("click", () => {
+        // 난이도, 게임 시간 같은 정보 같이 넣어주면 나중에 분석할 때 편함
+        logEvent("game_start", {
+            difficulty: difficultyKey,  // easy / normal / hard
+            totalTime: totalTime
+        });
+
+        startGame();
+    });
+
     if (animId) cancelAnimationFrame(animId);
     if (timerId) clearInterval(timerId);
     if (spawnIntervalId) clearInterval(spawnIntervalId);
@@ -381,7 +422,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    loadSettings();
-    loadBestScore();
-    updateHearts();
+    document.addEventListener("DOMContentLoaded", () => {
+        logEvent("page_enter");
+
+        loadSettings();
+        loadBestScore();
+        updateHearts();
+    });
+
 });
