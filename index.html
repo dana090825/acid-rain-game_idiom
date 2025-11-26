@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>산성비 - 일어판</title>
 
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/intro.css">
+    <link rel="stylesheet" href="./css/modal.css">
 </head>
 
 <body>
     <div class="intro-container">
+        <!-- ⓘ 아이콘 버튼 -->
+        <button class="info-btn" id="infoBtn">i</button>
+
         <div class="intro-content">
             <h1 class="intro-title">산성비 - 일어판</h1>
 
@@ -37,7 +42,6 @@
         </div>
     </div>
 
-
     <div class="intro-credit-box">
         <p class="intro-credit">
             제작자 : 이다연<br>
@@ -46,9 +50,34 @@
         </p>
     </div>
 
-    <script src="./js/intro.js"></script>
+    <!-- 게임 설명 모달 -->
+    <div class="info-modal" id="infoModal">
+        <div class="info-overlay" id="infoOverlay"></div>
+
+        <div class="info-box">
+            <h2>게임 설명</h2>
+            <p>
+                위에서 떨어지는 일본어 단어의 <strong>한국어 뜻</strong>을 입력해서 점수를 얻는 게임입니다.
+            </p>
+
+            <ul>
+                <li>⏱ 제한 시간: 인트로에서 직접 설정 가능</li>
+                <li>❤️ 목숨: 5개 (단어를 놓치면 1개 감소)</li>
+                <li>❌ 틀린 단어는 결과 화면에서 다시 확인 가능</li>
+                <li>⚙ 난이도: 단어 속도와 동시 등장 개수가 달라짐</li>
+            </ul>
+
+            <h3>문의</h3>
+            <p>
+                버그 제보 및 개선 제안은 아래 메일로 보내주세요.<br>
+                <strong>Email:</strong> dsmdy090825@dsm.hs.kr
+            </p>
+
+            <button class="info-close" id="infoClose">닫기</button>
+        </div>
     </div>
 
+    <script src="./js/intro.js"></script>
 </body>
 
 </html>

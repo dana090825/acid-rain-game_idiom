@@ -1,0 +1,34 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: url("../assets/bg.gif") center/cover repeat fixed;
+}
+
+@font-face {
+    font-family: "JpFont";
+    src: url(../assets/gomarice_mukasi_mukasi.ttf);
+}
+
+@font-face {
+    font-family: "KrFont-Thin";
+    src: url(../assets/ThinDungGeunMo.ttf);
+}
+
+@font-face {
+    font-family: "KrFont-Bold";
+    src: url(../assets/BoldDunggeunmo.ttf);
+}
+
+/* 일본어/한국어 텍스트용 공통 클래스 */
+.jp-text {
+    font-family: "JpFont";
+}
+
+.kr-text {
+    font-family: "KrFont-Thin";
+}
+
+/* 공통으로 쓰는 helper */
+.hidden {
+    display: none;
+}

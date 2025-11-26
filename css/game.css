@@ -1,0 +1,110 @@
+.game-container {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    padding: 24px 40px;
+    box-sizing: border-box;
+
+    color: white;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    padding: 12px 0;
+
+    font-family: "KrFont-Bold";
+    font-size: 22px;
+    color: #ffffff;
+
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.7),
+        0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+.stat {
+    font-size: 22px;
+    font-family: "KrFont-Bold";
+}
+
+.exit-btn {
+    padding: 6px 14px;
+    margin-left: 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    background: rgba(0, 0, 0, 0.35);
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+    transition: transform 0.2s ease;
+}
+
+.exit-btn:hover {
+    background: rgba(90, 130, 255, 0.6);
+    transform: translateY(-1px);
+}
+
+.game-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* 단어 떨어지는 영역 */
+.falling-area {
+    flex: 1;
+    margin-bottom: 24px;
+
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.falling-word {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+    white-space: nowrap;
+}
+
+/* 입력 영역 */
+.input-area {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.input-area input {
+    width: 260px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.input-area input:focus {
+    box-shadow: 0 0 0 2px rgba(140, 170, 255, 0.8);
+}
+
+.life-container {
+    position: fixed;
+    left: 24px;
+    bottom: 20px;
+    font-size: 24px;
+    color: #ff5c8a;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
+}

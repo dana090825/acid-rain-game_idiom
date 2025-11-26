@@ -1,0 +1,199 @@
+.game-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.game-modal {
+    background: rgba(30, 45, 80, 0.96);
+    border-radius: 14px;
+    padding: 24px 28px;
+    min-width: 320px;
+    max-width: 480px;
+    max-height: 80vh;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.game-modal-title {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.game-modal-score {
+    font-size: 18px;
+}
+
+.game-modal-best {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 4px;
+}
+
+.modal-link {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: #c7d9ff;
+    text-decoration: underline;
+    font-size: 13px;
+    cursor: pointer;
+    align-self: center;
+}
+
+.modal-link:hover {
+    color: #ffffff;
+}
+
+.game-modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.modal-btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background: rgba(90, 130, 255, 0.9);
+    color: white;
+    font-size: 14px;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.modal-btn:hover {
+    transform: translateY(-1px);
+    background: rgba(140, 170, 255, 1);
+}
+
+.modal-btn-secondary {
+    background: rgba(60, 60, 70, 0.95);
+}
+
+.modal-btn-secondary:hover {
+    background: rgba(100, 100, 115, 1);
+}
+
+/* 오답 전용 모달 */
+.wrong-only {
+    align-items: stretch;
+    gap: 12px;
+}
+
+.wrong-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    background: rgba(8, 16, 32, 0.9);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.wrong-table thead {
+    background: rgba(90, 130, 255, 0.9);
+}
+
+.wrong-table th,
+.wrong-table td {
+    padding: 6px 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.wrong-table th {
+    font-weight: bold;
+}
+
+.wrong-table tbody {
+    display: block;
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.wrong-table thead,
+.wrong-table tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.wrong-table td {
+    word-break: break-all;
+}
+
+/* info 모달 공통 레이아웃 (인트로 설명 모달) */
+.info-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.info-modal.open {
+    display: flex;
+}
+
+.info-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+}
+
+.info-box {
+    position: relative;
+    width: 90%;
+    max-width: 450px;
+    background: rgba(30, 30, 40, 0.95);
+    padding: 20px;
+    border-radius: 16px;
+    color: #ffffff;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+}
+
+.info-box h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 22px;
+}
+
+.info-box h3 {
+    margin-top: 16px;
+    margin-bottom: 6px;
+    font-size: 18px;
+}
+
+.info-box ul {
+    margin: 10px 0 16px 20px;
+    line-height: 1.4;
+}
+
+.info-close {
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: none;
+    background: #ffffff;
+    color: #111827;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.info-close:hover {
+    background-color: #e5e7eb;
+    transform: translateY(-1px);
+}
