@@ -302,16 +302,6 @@ function endGame() {
 }
 
 function startGame() {
-    startBtn.addEventListener("click", () => {
-        // 난이도, 게임 시간 같은 정보 같이 넣어주면 나중에 분석할 때 편함
-        logEvent("game_start", {
-            difficulty: difficultyKey,  // easy / normal / hard
-            totalTime: totalTime
-        });
-
-        startGame();
-    });
-
     if (animId) cancelAnimationFrame(animId);
     if (timerId) clearInterval(timerId);
     if (spawnIntervalId) clearInterval(spawnIntervalId);
