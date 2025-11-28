@@ -7,10 +7,8 @@ function logEvent(type, data = {}) {
         ...data
     };
 
-    // 콘솔에 찍기
     console.log("[ACID-RAIN-LOG]", payload);
 
-    // 로컬에 저장(선택 사항)
     try {
         const prev = JSON.parse(localStorage.getItem(LOG_KEY) || "[]");
         prev.push(payload);
@@ -46,6 +44,10 @@ let wrongTableBody;
 let openWrongBtn;
 let wrongBackBtn;
 let lifeHeartsEl;
+
+// 새로 추가: 맞춘 사자성어 표시용
+let currentIdiomEl;
+let currentMeaningEl;
 
 let activeWords = [];
 let wrongAnswers = [];
@@ -89,10 +91,6 @@ function saveBestScore() {
     localStorage.setItem("acidRainBestScore", bestScore.toString());
 }
 
-function randomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 function updateHearts() {
     if (!lifeHeartsEl) return;
     if (lives < 0) lives = 0;
@@ -102,38 +100,34 @@ function updateHearts() {
 function spawnWord() {
     if (!isRunning) return;
     if (activeWords.length >= diffConf.maxWords) return;
+    if (!WORDS || WORDS.length === 0) return;
 
-    const idx = Math.floor(Math.random() * WORDS.length);
-    const wordObj = WORDS[idx];
+    const item = WORDS[Math.floor(Math.random() * WORDS.length)];
 
-    const span = document.createElement("span");
-    span.className = "falling-word jp-text";
-    span.textContent = wordObj.jp;
+    const el = document.createElement("div");
+    el.className = "falling-word";
+    el.dataset.idiom = item.idiom;
+    el.dataset.hanja = item.hanja;
+    el.dataset.meaning = item.meaning;
 
-    const fontSize = 35;
-    span.style.fontSize = fontSize + "px";
+    // 실제로 화면에 보이는 건 간단한 뜻
+    el.textContent = item.meaning;
 
-    const areaWidth = fallingArea.clientWidth;
+    const x = Math.random() * (fallingArea.clientWidth - 120);
 
-    const len = wordObj.jp.length;
-    const approxWidth = fontSize * len;
-    const maxX = Math.max(areaWidth - approxWidth - 20, 0);
-    const x = randomInt(10, maxX > 10 ? maxX : 10);
+    el.style.left = `${x}px`;
+    el.style.top = `-40px`;
 
-    span.style.left = x + "px";
-    span.style.top = "-40px";
-
-    fallingArea.appendChild(span);
-
-    const baseSpeed = 1.5;
-    const speed = baseSpeed * diffConf.speedMultiplier;
+    fallingArea.appendChild(el);
 
     activeWords.push({
-        el: span,
-        word: wordObj,
-        x: x,
+        idiom: item.idiom,
+        hanja: item.hanja,
+        meaning: item.meaning,
+        el,
+        x,
         y: -40,
-        speed: speed
+        speed: 30 * diffConf.speedMultiplier
     });
 }
 
@@ -174,13 +168,20 @@ function clearActiveWords() {
     activeWords = [];
 }
 
+// 맞춘 사자성어 + 한자 + 뜻 표시
+function showIdiomInfo(word) {
+    if (!currentIdiomEl || !currentMeaningEl) return;
+    currentIdiomEl.textContent = `${word.idiom} (${word.hanja})`;
+    currentMeaningEl.textContent = word.meaning;
+}
+
 function renderWrongTable() {
     wrongTableBody.innerHTML = "";
 
     if (wrongAnswers.length === 0) {
         const tr = document.createElement("tr");
         const td = document.createElement("td");
-        td.colSpan = 3;
+        td.colSpan = 4; // 사자성어/한자/뜻/내 답
         td.textContent = "오답 없음";
         tr.appendChild(td);
         wrongTableBody.appendChild(tr);
@@ -191,17 +192,21 @@ function renderWrongTable() {
         const w = wrongAnswers[i];
         const tr = document.createElement("tr");
 
-        const jpTd = document.createElement("td");
-        jpTd.textContent = w.jp;
+        const idiomTd = document.createElement("td");
+        idiomTd.textContent = w.idiom;
 
-        const krTd = document.createElement("td");
-        krTd.textContent = w.kr;
+        const hanjaTd = document.createElement("td");
+        hanjaTd.textContent = w.hanja;
+
+        const meaningTd = document.createElement("td");
+        meaningTd.textContent = w.meaning;
 
         const userTd = document.createElement("td");
         userTd.textContent = w.user;
 
-        tr.appendChild(jpTd);
-        tr.appendChild(krTd);
+        tr.appendChild(idiomTd);
+        tr.appendChild(hanjaTd);
+        tr.appendChild(meaningTd);
         tr.appendChild(userTd);
 
         wrongTableBody.appendChild(tr);
@@ -215,7 +220,8 @@ function checkAnswer() {
 
     let foundIndex = -1;
     for (let i = 0; i < activeWords.length; i++) {
-        if (activeWords[i].word.kr === value) {
+        // 사자성어(한글)로 비교
+        if (activeWords[i].idiom === value) {
             foundIndex = i;
             break;
         }
@@ -223,6 +229,7 @@ function checkAnswer() {
 
     if (foundIndex !== -1) {
         const obj = activeWords[foundIndex];
+
         if (obj.el.parentNode === fallingArea) {
             fallingArea.removeChild(obj.el);
         }
@@ -236,18 +243,24 @@ function checkAnswer() {
             bestScoreEl.textContent = bestScore;
             saveBestScore();
         }
+
+        // 맞춘 사자성어 정보 표시
+        showIdiomInfo(obj);
     } else {
+        // 틀린 경우: 화면에 떠 있는 단어 중 하나와 매칭해서 저장
         if (activeWords.length > 0) {
             const target = activeWords[0];
             wrongAnswers.push({
-                jp: target.word.jp,
-                kr: target.word.kr,
+                idiom: target.idiom,
+                hanja: target.hanja,
+                meaning: target.meaning,
                 user: value
             });
         } else {
             wrongAnswers.push({
-                jp: "-",
-                kr: "-",
+                idiom: "-",
+                hanja: "-",
+                meaning: "-",
                 user: value
             });
         }
@@ -331,9 +344,16 @@ function startGame() {
     spawnIntervalId = setInterval(spawnWord, diffConf.spawnInterval);
     startTimer();
     step();
+
+    logEvent("game_start", {
+        difficulty: difficultyKey,
+        totalTime
+    });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    logEvent("page_enter");
+
     fallingArea = document.getElementById("falling-area");
     timeRemainingEl = document.getElementById("time-remaining");
     currentScoreEl = document.getElementById("current-score");
@@ -358,11 +378,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const exitBtn = document.getElementById("exit-btn");
 
+    // 맞춘 사자성어 정보 표시 영역 (없으면 null이라 그냥 무시됨)
+    currentIdiomEl = document.getElementById("current-idiom");
+    currentMeaningEl = document.getElementById("current-meaning");
+
     fetch("assets/words.json")
         .then(res => res.json())
         .then(data => {
             WORDS = data;
-            startGame();   // ★ 단어 로드된 뒤 게임 시작
+            startGame();   // 단어 로드된 뒤 게임 시작
         });
 
     if (submitBtn) {
@@ -411,12 +435,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-        logEvent("page_enter");
-
-        loadSettings();
-        loadBestScore();
-        updateHearts();
-    });
-
+    // 시작 시 하트/베스트 스코어 UI만 맞춰두고 싶으면 여기서도 호출 가능
+    updateHearts();
 });

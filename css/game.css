@@ -76,6 +76,7 @@
     color: white;
     text-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
     white-space: nowrap;
+    font-size: 16px;
 }
 
 /* 입력 영역 */
@@ -107,4 +108,24 @@
     font-size: 24px;
     color: #ff5c8a;
     text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
+}
+
+.info-panel {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+
+.idiom-text {
+    font-family: "KrFont-Bold";
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.meaning-text {
+    font-family: "KrFont-Thin";
+    font-size: 14px;
 }
