@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("acidRainGameTime", time);
         localStorage.setItem("acidRainDifficulty", diff);
 
-        window.location.href = "./game.html";
+        window.location.href = "/acid-rain-game_idiom/game.html";
     });
 
     const infoBtn = document.getElementById("infoBtn");
