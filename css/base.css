@@ -5,8 +5,8 @@ body {
 }
 
 @font-face {
-    font-family: "JpFont";
-    src: url(../assets/gomarice_mukasi_mukasi.ttf);
+    font-family: "HjFont";
+    src: url(../assets/FLyouzichati-Regular-2.ttf);
 }
 
 @font-face {
@@ -20,8 +20,8 @@ body {
 }
 
 /* 일본어/한국어 텍스트용 공통 클래스 */
-.jp-text {
-    font-family: "JpFont";
+.hj-text {
+    font-family: "HjFont";
 }
 
 .kr-text {
